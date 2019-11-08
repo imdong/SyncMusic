@@ -89,7 +89,7 @@
 						<br>
 						<h5>播放列表</h5>
 						<p>以下为等待播放的歌曲</p>
-						<div style="overflow-x: auto;">
+						<div style="overflow-x: auto; max-height: 720px;">
 							<table class="table responsive-table" id="musicList"></table>
 						</div>
 						<audio src="" id="musicControl" style="width: 0px;height: 0px;opacity: 0;" autoplay>
@@ -129,6 +129,7 @@
 		var next_lrc;
 		var rotate = 0;
 		var paused = false;
+		var music_id = null;
 		
 		function setPause() {
 			if(paused) {
@@ -188,7 +189,10 @@
 			musicpic.src = data.image;
 			rotate = 0;
 			$("#blurimgsrc").attr("xlink:href", data.image);
-			print("正在播放：" + music_title);
+			if (music_id != data.id) {
+				music_id = data.id;
+				print("正在播放：" + music_title);
+			}
 			$(musicpic).fadeIn();
 			lrcObj = parseLyric(data.lrcs);
 			setTimeout(function() {
